@@ -11,16 +11,16 @@ services:
       - PGID=1000
       - TZ=Europe/Paris
       - SERVERURL=${SERVER_URL}
-      - SERVERPORT=${SERVER_PORT}
+      - SERVERPORT=${SERVER_PORT:-51820}
       - PEERS=1 #increase for more clients
-      - PEERDNS=${DNS_SERVER}
+      - PEERDNS=${DNS_SERVER:-auto}
       - INTERNAL_SUBNET=10.13.13.0 #optional
       - ALLOWEDIPS=0.0.0.0/0 #optional
     volumes:
       - ./config:/config
       - /lib/modules:/lib/modules
     ports:
-      - ${SERVER_PORT}:51820/udp
+      - ${SERVER_PORT:-51820}:51820/udp
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
